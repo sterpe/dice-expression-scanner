@@ -3,13 +3,25 @@
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "line-source": "^0.0.0"
-  },
-  "devDependencies": {},
   "scripts": {
+    "lint": "standard",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "sterpe <srterpe@gmail.com> (https://github.com/sterpe)",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sterpe/dice-expression-scanner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sterpe/dice-expression-scanner/issues"
+  },
+  "homepage": "https://github.com/sterpe/dice-expression-scanner#readme",
+  "dependencies": {
+    "line-source": "^0.2.0"
+  },
+  "devDependencies": {
+    "jest-cli": "^0.6.1",
+    "standard": "^5.3.1"
+  }
 }
