@@ -21,8 +21,8 @@ describe([
     'token in the source'
   ].join(' '), function () {
     const Scanner = require(FILE)
-    const source = 'd3 D% 1d6 + 7 - d%'
-    const expected = ['d3', 'D%', '1d6', '+', 7, '-', 'd%']
+    const source = '2D4 d3 D% 1d6 + 7 - d%'
+    const expected = ['2D4', 'd3', 'D%', '1d6', '+', 7, '-', 'd%']
 
     const scanner = new Scanner(source)
 
