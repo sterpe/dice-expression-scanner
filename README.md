@@ -1,6 +1,7 @@
 # dice-expression-scanner
 
 ```javascript
+
 const Scanner = require('dice-expression-scanner')
 const scanner = new Scanner('1d6 + 7 - d%')
 scanner.nextToken()
@@ -15,4 +16,5 @@ scanner.nextToken()
 // { type: 'DIE', value: 'd%', position: 11, text: 'd%' }
 scanner.nextToken()
 // null
+
 ```
