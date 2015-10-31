@@ -1,19 +1,12 @@
 'use strict'
 
 const LineSource = require('line-source')
-
-const OPERATOR = require('./lib/constants').OPERATOR
-const ADDITION = require('./lib/constants').ADDITION
-const SUBTRACTION = require('./lib/constants').SUBTRACTION
-const DIE = require('./lib/constants').DIE
-const VALUE = require('./lib/constants').VALUE
+const CONSTANT = require('./lib/constant')
 
 function OperatorToken (currentPosition, source) {
   return {
-    type: OPERATOR,
-    value: source.currentChar === '+'
-      ? ADDITION
-      : SUBTRACTION,
+    type: CONSTANT.OPERATOR,
+    value: source.currentChar,
     position: currentPosition,
     text: source.currentChar
   }
@@ -30,7 +23,7 @@ function isDiceExpression (S) {
 
 function DiceExpressionToken (currentPosition, S) {
   return {
-    type: DIE,
+    type: CONSTANT.DIE,
     value: S,
     position: currentPosition,
     text: S
@@ -39,7 +32,7 @@ function DiceExpressionToken (currentPosition, S) {
 
 function ValueToken (currentPosition, S) {
   return {
-    type: VALUE,
+    type: CONSTANT.LITERAL,
     value: parseInt(S, 10),
     position: currentPosition,
     text: S
@@ -64,6 +57,11 @@ module.exports = function DiceExpressionScanner (expression) {
     }
 
     let isOk = isDiceExpressionOrValue
+
+    if (/(?:d|D)/.test(source.currentChar)) {
+      S += source.currentChar
+      source.nextChar()
+    }
 
     while (isOk(S + source.currentChar)) {
       S += source.currentChar

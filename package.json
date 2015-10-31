@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "standard",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard && jest"
   },
   "author": "sterpe <srterpe@gmail.com> (https://github.com/sterpe)",
   "license": "MIT",
