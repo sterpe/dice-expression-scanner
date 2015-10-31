@@ -1,5 +1,7 @@
 # dice-expression-scanner
 
+A dice expression tokenizer.
+
 ```javascript
 
 const Scanner = require('dice-expression-scanner')
