@@ -1,6 +1,6 @@
 {
   "name": "dice-expression-scanner",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "scripts": {
     "make": "make $@",
     "precommit": "make test",
