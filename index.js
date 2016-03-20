@@ -1,7 +1,7 @@
 'use strict'
 
 const LineSource = require('line-source')
-const CONSTANT = require('./lib/constant')
+const CONSTANT = require('dice-constants')
 
 function OperatorToken (currentPosition, source) {
   return {
@@ -24,7 +24,7 @@ function isDiceExpression (S) {
 function DiceExpressionToken (currentPosition, S) {
   return {
     type: CONSTANT.DIE,
-    value: S,
+    value: S.toLowerCase(),
     position: currentPosition,
     text: S
   }
@@ -39,51 +39,51 @@ function ValueToken (currentPosition, S) {
   }
 }
 
-module.exports = function DiceExpressionScanner (expression) {
+function DiceExpressionScanner (expression) {
   const source = new LineSource(expression)
+  const nextToken = DiceExpressionScanner.prototype.nextToken
+  this.nextToken = nextToken.bind(this, source)
+}
 
-  function nextToken () {
-    let S = ''
+DiceExpressionScanner.prototype.nextToken = function (source) {
+  let S = ''
 
-    while (/\s/.test(source.currentChar)) {
-      source.nextChar()
-    }
+  while (/\s/.test(source.currentChar)) {
+    source.nextChar()
+  }
 
-    let currentPosition = source.position
+  let currentPosition = source.position
 
-    if (/^(?:\+|\-)/.test(source.currentChar)) {
-      return [new OperatorToken(currentPosition,
-        source), source.nextChar()].shift()
-    }
+  if (/^(?:\+|\-)/.test(source.currentChar)) {
+    return [new OperatorToken(currentPosition,
+      source), source.nextChar()].shift()
+  }
 
-    let isOk = isDiceExpressionOrValue
+  let isOk = isDiceExpressionOrValue
 
+  if (/(?:d|D)/.test(source.currentChar)) {
+    S += source.currentChar
+    source.nextChar()
+  }
+
+  while (isOk(S + source.currentChar)) {
+    S += source.currentChar
+    source.nextChar()
     if (/(?:d|D)/.test(source.currentChar)) {
       S += source.currentChar
       source.nextChar()
     }
-
-    while (isOk(S + source.currentChar)) {
-      S += source.currentChar
-      source.nextChar()
-      if (/(?:d|D)/.test(source.currentChar)) {
-        S += source.currentChar
-        source.nextChar()
-      }
-    }
-    if (isOk(S)) {
-      let T = isDiceExpression(S)
-        ? DiceExpressionToken
-        : ValueToken
-      return new T(currentPosition, S)
-    } else if (source.currentChar === null) {
-      return null
-    } else {
-      throw new Error()
-    }
   }
-
-  return {
-    nextToken
+  if (isOk(S)) {
+    let T = isDiceExpression(S)
+      ? DiceExpressionToken
+      : ValueToken
+    return new T(currentPosition, S)
+  } else if (source.currentChar === null) {
+    return null
+  } else {
+    throw new Error()
   }
 }
+
+module.exports = DiceExpressionScanner
