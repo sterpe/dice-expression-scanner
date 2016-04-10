@@ -10,7 +10,7 @@
     "standard": "^6.0.5"
   },
   "dependencies": {
-    "dice-constants": "^0.1.2",
+    "dice-constants": "^0.1.3",
     "line-source": "^0.2.7"
   },
   "description": "A dice expression tokenizer.",
