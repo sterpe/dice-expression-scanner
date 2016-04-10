@@ -1,7 +1,7 @@
 'use strict'
 
-const LineSource = require('line-source')
-const CONSTANT = require('dice-constants')
+var LineSource = require('line-source')
+var CONSTANT = require('dice-constants')
 
 function OperatorToken (currentPosition, source) {
   return {
@@ -40,26 +40,26 @@ function ValueToken (currentPosition, S) {
 }
 
 function DiceExpressionScanner (expression) {
-  const source = new LineSource(expression)
-  const nextToken = DiceExpressionScanner.prototype.nextToken
+  var source = new LineSource(expression)
+  var nextToken = DiceExpressionScanner.prototype.nextToken
   this.nextToken = nextToken.bind(this, source)
 }
 
 DiceExpressionScanner.prototype.nextToken = function (source) {
-  let S = ''
+  var S = ''
 
   while (/\s/.test(source.currentChar)) {
     source.nextChar()
   }
 
-  let currentPosition = source.position
+  var currentPosition = source.position
 
   if (/^(?:\+|\-)/.test(source.currentChar)) {
     return [new OperatorToken(currentPosition,
       source), source.nextChar()].shift()
   }
 
-  let isOk = isDiceExpressionOrValue
+  var isOk = isDiceExpressionOrValue
 
   if (/(?:d|D)/.test(source.currentChar)) {
     S += source.currentChar
@@ -75,7 +75,7 @@ DiceExpressionScanner.prototype.nextToken = function (source) {
     }
   }
   if (isOk(S)) {
-    let T = isDiceExpression(S)
+    var T = isDiceExpression(S)
       ? DiceExpressionToken
       : ValueToken
     return new T(currentPosition, S)

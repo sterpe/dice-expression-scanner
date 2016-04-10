@@ -2,25 +2,19 @@
   "name": "dice-expression-scanner",
   "version": "0.1.4",
   "scripts": {
-    "make": "make $@",
-    "precommit": "make test",
     "test": "make test"
   },
   "devDependencies": {
-    "babel-cli": "^6.5.1",
-    "babel-jest": "^6.0.1",
-    "babel-preset-es2015": "^6.5.0",
-    "husky": "^0.11.1",
     "jasmine-reporters": "^1.0.2",
     "jest-cli": "^0.9.0",
     "standard": "^6.0.5"
   },
   "dependencies": {
-    "dice-constants": "^0.1.1",
-    "line-source": "^0.2.6"
+    "dice-constants": "^0.1.2",
+    "line-source": "^0.2.7"
   },
   "description": "A dice expression tokenizer.",
-  "main": "dist/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sterpe/dice-expression-scanner.git"
